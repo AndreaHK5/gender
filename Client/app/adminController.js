@@ -4,7 +4,6 @@
   app.controller('adminController', function($scope, $state, apiService) {
     
     $scope.deleteData = function() {
-      console.log("deleting");
       $state.loading = true;
       apiService.resetVotes().then(function () {
         $state.loading = false;

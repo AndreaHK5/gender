@@ -11,11 +11,11 @@
       .state('vote', {
         url: "/",
         controller: 'voteController',
-        templateUrl: "partials/vote.html"
+        templateUrl: "Client/partials/vote.html"
       })
       .state('summary', {
         url: "/summary",
-        templateUrl: "partials/summary.html",
+        templateUrl: "Client/partials/summary.html",
         controller: 'summaryController'
       });
      });

@@ -10,6 +10,11 @@
   color: red;
 }
 
-.margintop30 {
-  margin-top: 30px;
+.margintop65 {
+  margin-top: 65px;
+}
+@media only screen and (max-width: 768px) {
+  .margintop65 {
+    margin-top: 140px;
+  }
 }

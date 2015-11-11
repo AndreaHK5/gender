@@ -10,13 +10,27 @@
     $stateProvider
       .state('vote', {
         url: "/",
-        controller: 'voteController',
-        templateUrl: "partials/vote.html"
+        views : {
+          content : {
+            controller: 'voteController',
+            templateUrl: "partials/vote.html"            
+          },
+          nav : {
+            templateUrl: "partials/navbar.html"
+          }
+        }
       })
       .state('summary', {
         url: "/summary",
-        templateUrl: "partials/summary.html",
-        controller: 'summaryController'
+        views : {
+          content : {
+            controller: 'summaryController',
+            templateUrl: "partials/summary.html"           
+          },
+          nav : {
+            templateUrl: "partials/navbar.html"
+          }
+        }
       });
      });
 })();

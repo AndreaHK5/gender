@@ -10,7 +10,12 @@
         };
 
         var putVote = function(vote) {
-          console.log("send vote for " + vote);
+              var data = {};
+              data.gender = vote;
+              return $http.put("http://genderbackend.azurewebsites.net/api/vote", data)
+                .then(function (response) {
+                    return response.data;
+                });
 
         };
         return {

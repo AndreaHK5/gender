@@ -4,7 +4,6 @@
   app.controller('summaryController', function($scope, apiService) {
     apiService.getVotes().then(function(data){
       $scope.votes = data;
-      console.log(data);
     });
   });
 })();

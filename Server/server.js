@@ -1,12 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var voteHash = {
-    male: 0,
-    female: 0
-};
 
-var api = require('./Modules/API.js').call({}, voteHash);
+var api = require('./Modules/API.js').call({});
+
+
 
 var app = express();
 var port = process.env.PORT || 3000;

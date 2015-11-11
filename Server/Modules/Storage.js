@@ -15,6 +15,9 @@ function storage(filepath) {
     }   
 
     function Read() {
+        if (!(fs.existsSync(filepath))) {
+            return -1;
+        }
         return JSON.parse(fs.readFileSync(filepath , 'utf8'));
     }   
 

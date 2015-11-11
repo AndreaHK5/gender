@@ -1,0 +1,27 @@
+{
+  "name": "ngsample",
+  "version": "0.0.0",
+  "authors": [
+    "AndreaHK5 <cremese@gmail.com>"
+  ],
+  "keywords": [
+    "ng"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "ui.bootstrap": "~0.13.4",
+    "angular-ui-bootstrap": "~0.13.4",
+    "angular-bootstrap": "~0.13.4"
+  }
+}

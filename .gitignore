@@ -197,6 +197,8 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+#
+bower_components/
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat

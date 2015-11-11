@@ -1,0 +1,24 @@
+{
+  "name": "GenderServer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "NA",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Garden",
+    "Node"
+  ],
+  "author": "Andrea Cremese",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "gulp-nodemon": "^2.0.4"
+  }
+}

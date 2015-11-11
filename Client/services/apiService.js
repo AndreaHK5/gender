@@ -1,6 +1,6 @@
 (function () {
-
-    var apiService = function ($http) {
+    var module = angular.module("someApp");
+    module.factory("apiService", function ($http) {
 
         var getVotes = function () {
             return $http.get("http://genderbackend.azurewebsites.net/api/votes")
@@ -22,9 +22,6 @@
             getVotes: getVotes,
             putVote: putVote
         };
-    };
-
-    var module = angular.module("someApp");
-    module.factory("apiService", apiService);
+    });
 
 }());

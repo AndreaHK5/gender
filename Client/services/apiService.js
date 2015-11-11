@@ -16,11 +16,19 @@
                 .then(function (response) {
                     return response.data;
                 });
-
         };
+
+        var resetVotes = function() {
+              return $http.post("http://genderbackend.azurewebsites.net/api/resetvote")
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         return {
             getVotes: getVotes,
-            putVote: putVote
+            putVote: putVote,
+            resetVotes: resetVotes
         };
     });
 

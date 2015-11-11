@@ -18,4 +18,6 @@ app
     .listen(port);
 
 app.put('/api/vote', api.PutVote);
-app.get('/api/votes', api.GetVotes)
+app.get('/api/votes', api.GetVotes);
+app.post('/api/resetvote', api.ResetVotes);
+

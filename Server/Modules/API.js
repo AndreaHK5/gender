@@ -8,10 +8,9 @@ function createapi(voteHash) {
 
     return {
       PutVote : PutVote,
-      GetVotes : GetVotes
+      GetVotes : GetVotes,
+      ResetVotes : ResetVotes
     }
-
-    voteHash = { male: 0, female: 0  };
 
     function PutVote(req, res) {
         // validation
@@ -29,7 +28,12 @@ function createapi(voteHash) {
 
     function GetVotes(req, res) {
         res.status(200).send(storage.Read());
-    }; 
+    };
+
+    function ResetVotes(req, res) {
+       storage.Update({ male: 0, female: 0  }); 
+       res.status(200).send("votes reset");
+    } 
 }
 
 

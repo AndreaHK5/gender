@@ -31,6 +31,19 @@
             templateUrl: "partials/navbar.html"
           }
         }
+      })
+      .state('admin', {
+        url: "/admin",
+        views : {
+          content : {
+            controller: 'adminController',
+            templateUrl: "partials/admin.html"           
+          },
+          nav : {
+            templateUrl: "partials/navbar.html"
+          }
+        }
       });
+
      });
 })();

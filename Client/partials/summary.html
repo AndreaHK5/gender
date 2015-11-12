@@ -4,7 +4,7 @@
     <div class="col-sm-2 col-sm-offset-4 col-xs-6 text-center">
       <h3 class="opacity50">MALE</h3>
       <i class="fa fa-male fa-5x"></i>
-      <h3 class="green" ng-class="{'red' : percentages.male - percentages.female > 1}">{{percentages.male | number:0}}%</h3>
+      <h3 class="green" ng-class="{'red' : percentages.female - percentages.male > 1}">{{percentages.male | number:0}}%</h3>
       <button class="btn btn-success btn-md" ng-click="vote('male')">
         <i class="fa fa-check fa-1x"></i> vote
       </button>
@@ -12,7 +12,7 @@
     <div class="col-sm-2 col-xs-6 text-center">
       <h3 class="opacity50">FEMALE</h3>
       <i class="fa fa-female fa-5x"></i>
-      <h3 class="green" ng-class="{'red' : percentages.female - percentages.male > 1}">{{percentages.female | number:0}}%</h3>
+      <h3 class="green" ng-class="{'red' : percentages.male - percentages.female > 1}">{{percentages.female | number:0}}%</h3>
       <button class="btn btn-success btn-md" ng-click="vote('female')">
         <i class="fa fa-check fa-1x"></i> vote
       </button>

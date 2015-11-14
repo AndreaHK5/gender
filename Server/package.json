@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "NA",
-    "start": "node Server/server.js"
+    "start": "node server.js"
   },
   "keywords": [
     "Garden",
@@ -13,7 +13,13 @@
   ],
   "author": "Andrea Cremese",
   "license": "ISC",
-  "dependencies": {  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "fs": "0.0.2"
+  },
   "devDependencies": {
+    "gulp-nodemon": "^2.0.4"
   }
 }

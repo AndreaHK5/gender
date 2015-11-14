@@ -2,9 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var api = require('./Modules/API.js').call({});
+var votesPath = "./Storage/votes.json";
+var storage = require('./Modules/Storage.js').call({}, votesPath);
 
-
+// IoC for api
+var votesController = require('./Modules/VotesController.js').call({}, storage);
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -17,7 +19,13 @@ app
     .use(bodyParser.json())
     .listen(port);
 
-app.put('/api/vote', api.PutVote);
-app.get('/api/votes', api.GetVotes);
-app.post('/api/resetvote', api.ResetVotes);
+app.put('/api/vote', votesController.PutVote);
+app.get('/api/votes', votesController.GetVotes);
+app.post('/api/resetvote', votesController.ResetVotes);
+
+
+//TODO:
+// Unit test for API Controller
+// Include Persistance layer to MongoLab ILO file system
+// Split Controller from business logic for better unit testability
 

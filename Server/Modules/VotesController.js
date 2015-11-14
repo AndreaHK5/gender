@@ -1,9 +1,6 @@
 module.exports = createapi;
 
-var votesPath = "./Storage/votes.json";
-var storage = require('./Storage.js').call({}, votesPath);
-
-function createapi() {
+function createapi(storage) {
     'use strict';
 
     return {
@@ -12,12 +9,10 @@ function createapi() {
       ResetVotes : ResetVotes
     }
 
-    
-
     function PutVote(req, res) {
         // validation
         var blank = getBlank();
-        if (!("gender" in req.body ) || !(req.body.gender in blank)) {
+        if (!("gender" in req.body) || !(req.body.gender in blank)) {
             res.status(200).send("bad request, please send 'gender' as 'male' or 'female' in a literal");
             return;
         }
@@ -29,8 +24,8 @@ function createapi() {
         // update
         storage.Update(voteHash);
         //response
-        res.status(200).send("ok");  
-    }   
+        res.status(200).send("ok");
+    }
 
     function GetVotes(req, res) {
         var result = storage.Read();

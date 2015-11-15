@@ -20,6 +20,8 @@
     "fs": "0.0.2"
   },
   "devDependencies": {
-    "gulp-nodemon": "^2.0.4"
+    "gulp-nodemon": "^2.0.4",
+    "mocha": "^2.3.3",
+    "supertest": "^1.1.0"
   }
 }

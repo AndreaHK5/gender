@@ -64,7 +64,7 @@ describe("Votes Controller Unit Test", function () {
       }
   })
 
-  it("accepts votes", function(done){
+  it("accepts votes for males", function(done){
     request(app)
       .put('/api/vote')
       .send({'gender' : 'male'})
@@ -75,7 +75,23 @@ describe("Votes Controller Unit Test", function () {
         var updatedVotes = _storageMock.Read(); 
         if (res.status != 200) throw new Error("Expected 200, received " + res.status);
         if ("error" in res.body) throw new Error ("Error message should not be provided" + res.text);
-        if (votes.male != 1) throw new Error ("Genders not updated");
+        if (updatedVotes.male != 1) throw new Error ("Genders not updated");
+      }
+  })
+
+
+  it("accepts votes for females", function(done){
+    request(app)
+      .put('/api/vote')
+      .send({'gender' : 'female'})
+      .expect(assertion)
+      .end(done);
+
+      function assertion(res) {
+        var updatedVotes = _storageMock.Read(); 
+        if (res.status != 200) throw new Error("Expected 200, received " + res.status);
+        if ("error" in res.body) throw new Error ("Error message should not be provided" + res.text);
+        if (updatedVotes.female != 5) throw new Error ("Genders not updated");
       }
   })
 

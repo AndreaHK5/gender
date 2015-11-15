@@ -10,7 +10,7 @@ function Start(address, votesController) {
   var port = process.env.PORT || address || 3000;
   var jsonParser = bodyParser.json({type: 'application/*+json'}); 
 
-  app
+  var server = app
       .use(cors())
       .use(jsonParser)
       .use(bodyParser.json())
@@ -20,5 +20,9 @@ function Start(address, votesController) {
   app.get('/api/votes', votesController.GetVotes);
   app.post('/api/resetvote', votesController.ResetVotes);
 
-  return app;
+  // required to ensure turning off server for tests
+  return {
+    app : app,
+    server : server
+  };
 }

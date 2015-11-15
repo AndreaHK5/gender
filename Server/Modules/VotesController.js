@@ -13,7 +13,7 @@ function createapi(storage) {
         // validation
         var blank = getBlank();
         if (!("gender" in req.body) || !(req.body.gender in blank)) {
-            res.status(200).send("bad request, please send 'gender' as 'male' or 'female' in a literal");
+            res.status(200).send({error: "bad request, please send 'gender' as 'male' or 'female' in a literal"});
             return;
         }
         var voteHash = storage.Read();
@@ -39,7 +39,7 @@ function createapi(storage) {
 
     function ResetVotes(req, res) {
         storage.Update(getBlank());
-        res.status(200).send("votes reset");
+        res.status(200).send({message: "votes reset"});
     }
 
 

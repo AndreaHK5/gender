@@ -9,8 +9,9 @@ require('./app.js').call({}, 3000, votesController);
 
 
 //TODO:
-// Unit test for API Controller
 // Include Persistance layer to MongoLab ILO file system
+// TODO manual mocks, for the time being. Must find a package like Moq for node
 // Split Controller from business logic for better unit testability
+// find better package for assertions
 // End to end test.
 

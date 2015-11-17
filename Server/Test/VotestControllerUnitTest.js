@@ -41,7 +41,7 @@ describe("Votes Controller Unit Test", function () {
   it("rejects votes with no gender", function(done){
     request(app)
       .put('/api/vote')
-      .field('someKey', 'some Mock Gendere Here')
+      .send({'someKey' : 'someMockGender'})
       .expect(assertion)
       .end(done);
 
@@ -54,7 +54,7 @@ describe("Votes Controller Unit Test", function () {
   it("rejects votes with malformed gender", function(done){
     request(app)
       .put('/api/vote')
-      .field('gender', 'some Mock Gendere Here')
+      .send({'gender' : 'someMockGender'})
       .expect(assertion)
       .end(done);
 

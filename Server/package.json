@@ -17,7 +17,8 @@
     "body-parser": "^1.14.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "sinon": "^1.17.2"
   },
   "devDependencies": {
     "gulp-nodemon": "^2.0.4",

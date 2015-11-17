@@ -36,35 +36,35 @@ describe("Votes Controller Unit Test", function () {
       });
   });
 
-  it("cast vote, read vote and reset votes", function(done){
-    request(app)
-      .put('/api/vote')
-      .send({gender : 'male'})
-      .expect(assertionPut)
-      .then(getTest);
+  // it("cast vote, read vote and reset votes", function(done){
+  //   request(app)
+  //     .put('/api/vote')
+  //     .send({gender : 'male'})
+  //     .expect(assertionPut)
+  //     .then(getTest);
 
-      function assertionPut(res) {
+  //     function assertionPut(res) {
 
-        if (res.status != 200) {throw new Error("expected 200, received " + res.status);}
-        console.log(tempStorageFile);
-        fs.readFile(tempStorageFile, function (err, data) {
-          if (err) {throw new Error("File not created by persistance layer");}
-          var votesRead = JSON.parse(data);
-          if (votesRead.male != 1 ) {throw new Error("votes not updated in persistance layer - male, expected 1, actual " + data);}
-          if (votesRead.female != 0 ) {throw new Error("votes not updated in persistance layer - female");}
-        });
-      }
+  //       if (res.status != 200) {throw new Error("expected 200, received " + res.status);}
+  //       console.log(tempStorageFile);
+  //       fs.readFile(tempStorageFile, function (err, data) {
+  //         if (err) {throw new Error("File not created by persistance layer");}
+  //         var votesRead = JSON.parse(data);
+  //         if (votesRead.male != 1 ) {throw new Error("votes not updated in persistance layer - male, expected 1, actual " + data);}
+  //         if (votesRead.female != 0 ) {throw new Error("votes not updated in persistance layer - female");}
+  //       });
+  //     }
 
-      function getTest(){
-        request(app)
-          .get('/api/votes')
-          .set('Accept', 'application/json')
-          .expect(200, { male : 1, female : 0})
-          .end(function(err, res){
-            if (err) { return done(err);}
-            done();
-          });
-      }
-  })
+  //     function getTest(){
+  //       request(app)
+  //         .get('/api/votes')
+  //         .set('Accept', 'application/json')
+  //         .expect(200, { male : 1, female : 0})
+  //         .end(function(err, res){
+  //           if (err) { return done(err);}
+  //           done();
+  //         });
+  //     }
+  // })
 
 });

@@ -1,6 +1,6 @@
 module.exports = createapi;
 
-function createapi(storage) {
+function createapi(votesService) {
     'use strict';
 
     return {
@@ -10,42 +10,35 @@ function createapi(storage) {
     }
 
     function PutVote(req, res) {
-        // validation
-        var blank = getBlank();
-        if (!("gender" in req.body) || !(req.body.gender in blank)) {
+        if (!("gender" in req.body) || (['male','female'].indexOf(req.body.gender) == -1)) {
             res.status(200).send({error: "bad request, please send 'gender' as 'male' or 'female' in a literal"});
             return;
         }
-        var voteHash = storage.Read();
-        if (voteHash == -1) {
-            voteHash = getBlank();
+        votesService.addVote(req.body.gender).then(onsuccess, onfailure);
+
+        function onsuccess(){
+            res.status(200).send("ok");
         }
-        voteHash[req.body.gender] = voteHash[req.body.gender] + 1;
-        // update
-        storage.Update(voteHash);
-        //response
-        res.status(200).send("ok");
     }
 
     function GetVotes(req, res) {
-        var result = storage.Read();
-        if (result == -1) {
-            result = getBlank();
-            storage.Update(result);
+        votesService.retrieveVotes().then(onsuccess, onfailure);
+        function onsuccess(result){
+            res.status(200).send(result);
         }
-        res.status(200).send(result);
-
     };
 
     function ResetVotes(req, res) {
-        storage.Update(getBlank());
-        res.status(200).send({message: "votes reset"});
+        votesService.resetVotes().then(onsuccess, onfailure);
+        function onsuccess(){
+            res.status(200).send("votes reset");
+        }
     }
 
-
-    function getBlank(){
-        return { male: 0, female: 0  };
+    function onfailure(err) {
+        res.status(500).send({error : "server error " + err});
     }
+
 }
 
 

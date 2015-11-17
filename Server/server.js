@@ -6,5 +6,3 @@ var votesController = require('./Modules/VotesController.js').call({}, persistan
 
 // start app with dependency injection
 require('./app.js').call({}, 3000, votesController);
-
-

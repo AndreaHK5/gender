@@ -1,5 +1,4 @@
 var request = require('supertest');
-var sinon = request('sinon');
 
 describe("Votes Controller Unit Test", function () {
 
@@ -9,13 +8,18 @@ describe("Votes Controller Unit Test", function () {
   beforeEach(function (next) {
 
     // Injection of mocks 
+    var votes = {male : 0, female:1};
     var _voteServiceMock = { 
-      addVote: function () {},
-      retrieveVotes: function () {},
+      addVote: function () { return Promise.defer().resolve(); },
+      retrieveVotes: function () { 
+        var deferred = Promise.defer();
+        setTimeout(function (){
+          deferred.resolve(votes);
+        },500);
+        return deferred.promise; 
+      },
       resetVotes: function () {}
     }
-    var mock = sinon.mock(_voteServiceMock);
-    mock.expects("addVote").once().returns(Q.resolve());
 
     // instantiation of system under test
     var _sut = require("../Modules/VotesController").call({},_voteServiceMock);
@@ -36,8 +40,13 @@ describe("Votes Controller Unit Test", function () {
     request(app)
       .get('/api/votes')
       .set('Accept', 'application/json')
-      .expect(200, votes)
+      .expect(assertion)
       .end(done);
+
+      function assertion(res){
+        if (res.status != 200) throw new Error("expected 200, received " + res.status);
+        if (res.body != votes) throw new Error("votes not received " + JSON.stringify(res.body));
+      }
   })
 
   // it("rejects votes with no gender", function(done){

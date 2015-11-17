@@ -9,7 +9,6 @@ describe("Votes Controller Unit Test", function () {
   beforeEach(function (next) {
 
     // Injection of mocks 
-
     var _voteServiceMock = { 
       addVote: function () {},
       retrieveVotes: function () {},

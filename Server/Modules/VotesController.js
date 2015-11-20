@@ -17,7 +17,7 @@ function createapi(votesService) {
         votesService.addVote(req.body.gender).then(onsuccess, onfailure);
 
         function onsuccess(){
-            res.status(200).send("ok");
+            res.status(200).send({message: "ok"});
         }
     }
 
@@ -31,7 +31,7 @@ function createapi(votesService) {
     function ResetVotes(req, res) {
         votesService.resetVotes().then(onsuccess, onfailure);
         function onsuccess(){
-            res.status(200).send("votes reset");
+            res.status(200).send({message:"votes reset"});
         }
     }
 

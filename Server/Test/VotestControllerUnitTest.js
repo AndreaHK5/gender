@@ -5,20 +5,36 @@ describe("Votes Controller Unit Test", function () {
   var votes;
   var _storageMock;
   // setup 
+  var votes = {
+    male : 0, 
+    female:1
+  };
+
   beforeEach(function (next) {
 
-    // Injection of mocks 
-    var votes = {male : 0, female:1};
+    // Mock Service Votes
     var _voteServiceMock = { 
-      addVote: function () { return Promise.defer().resolve(); },
+      addVote: function () { 
+        var deferred = Promise.defer();
+        setTimeout(function (){
+          deferred.resolve("OK");
+        },1);
+        return deferred.promise;  
+      },
       retrieveVotes: function () { 
         var deferred = Promise.defer();
         setTimeout(function (){
           deferred.resolve(votes);
-        },500);
+        },1);
         return deferred.promise; 
       },
-      resetVotes: function () {}
+      resetVotes: function () {
+        var deferred = Promise.defer();
+        setTimeout(function (){
+          deferred.resolve("OK");
+        },1);
+        return deferred.promise; 
+      }
     }
 
     // instantiation of system under test
@@ -36,6 +52,19 @@ describe("Votes Controller Unit Test", function () {
       server.close();    
   });
 
+  // Success Response Assertions
+  function successAssertions(res) {
+     if (res.status != 200) throw new Error("Expected 200, received " + res.status);
+     if ("error" in res.body) throw new Error ("error should not be provided" + res.text);
+     if (!("message" in res.body)) throw new Error ("message should be provided" + res.text);    
+  }
+
+  // Validation Errors Assertions
+  function errorAssertions(res) {
+    if (res.status != 200) throw new Error("expected 200, received " + res.status);
+    if (! ("error" in res.body)) throw new Error ("No error message is returned" + res.text);
+  }
+
   it("can get votes", function(done){
     request(app)
       .get('/api/votes')
@@ -45,73 +74,47 @@ describe("Votes Controller Unit Test", function () {
 
       function assertion(res){
         if (res.status != 200) throw new Error("expected 200, received " + res.status);
-        if (res.body != votes) throw new Error("votes not received " + JSON.stringify(res.body));
+        if (res.body.male != votes.male && res.body.female != votes.female) throw new Error("votes canot be retrieved ");
       }
   })
 
-  // it("rejects votes with no gender", function(done){
-  //   request(app)
-  //     .put('/api/vote')
-  //     .send({'someKey' : 'someMockGender'})
-  //     .expect(assertion)
-  //     .end(done);
+  it("rejects votes with no gender", function(done){
+    request(app)
+      .put('/api/vote')
+      .send({'someKey' : 'someMockGender'})
+      .expect(errorAssertions)
+      .end(done);
+  })
 
-  //     function assertion(res) {
-  //       if (res.status != 200) throw new Error("expected 200, received " + res.status);
-  //       if (! ("error" in res.body)) throw new Error ("No error message is returned" + res.text);
-  //     }
-  // })
+  it("rejects votes with malformed gender", function(done){
+    request(app)
+      .put('/api/vote')
+      .send({'gender' : 'someMockGender'})
+      .expect(errorAssertions)
+      .end(done);
+  })
 
-  // it("rejects votes with malformed gender", function(done){
-  //   request(app)
-  //     .put('/api/vote')
-  //     .send({'gender' : 'someMockGender'})
-  //     .expect(assertion)
-  //     .end(done);
+  it("accepts votes for males", function(done){
+    request(app)
+      .put('/api/vote')
+      .send({'gender' : 'male'})
+      .expect(successAssertions)
+      .end(done);
+  })
 
-  //     function assertion(res) {
-  //       if (res.status != 200) throw new Error("expected 200, received " + res.status);
-  //       if (! ("error" in res.body)) throw new Error ("No error message is returned" + res.text);
-  //     }
-  // })
+  it("accepts votes for females", function(done){
+    request(app)
+      .put('/api/vote')
+      .send({'gender' : 'female'})
+      .expect(successAssertions)
+      .end(done);
+  })
 
-  // it("accepts votes for males", function(done){
-  //   request(app)
-  //     .put('/api/vote')
-  //     .send({'gender' : 'male'})
-  //     .expect(assertion)
-  //     .end(done);
-
-  //     function assertion(res) { 
-  //       if (res.status != 200) throw new Error("Expected 200, received " + res.status);
-  //       if ("error" in res.body) throw new Error ("Error message should not be provided" + res.text);
-  //     }
-  // })
-
-
-  // it("accepts votes for females", function(done){
-  //   request(app)
-  //     .put('/api/vote')
-  //     .send({'gender' : 'female'})
-  //     .expect(assertion)
-  //     .end(done);
-
-  //     function assertion(res) {
-  //       if (res.status != 200) throw new Error("Expected 200, received " + res.status);
-  //       if ("error" in res.body) throw new Error ("Error message should not be provided" + res.text);
-  //     }
-  // })
-
-  // it("can reset votes", function(done){
-  //   request(app)
-  //     .post('/api/resetvote')
-  //     .expect(assertion)
-  //     .end(done);
-
-  //     function assertion(res) {
-  //       if (res.status != 200) throw new Error("Expected 200, received " + res.status);
-  //       if (!("message" in res.body)) throw new Error ("message should not be provided" + res.text);
-  //     }
-  // })
+  it("can reset votes", function(done){
+    request(app)
+      .post('/api/resetvote')
+      .expect(successAssertions)
+      .end(done);
+  })
 
 });

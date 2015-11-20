@@ -22,8 +22,3 @@ function storage(filepath) {
     }   
 
 }
-
-
-
-
-

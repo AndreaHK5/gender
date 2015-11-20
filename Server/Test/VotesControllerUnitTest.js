@@ -2,8 +2,6 @@ var request = require('supertest');
 
 describe("Votes Controller Unit Test", function () {
 
-  var votes;
-  var _storageMock;
   // setup 
   var votes = {
     male : 0, 

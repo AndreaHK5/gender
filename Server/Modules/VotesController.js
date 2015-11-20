@@ -1,5 +1,6 @@
 module.exports = createapi;
 
+// validation and REST layer for votes
 function createapi(votesService) {
     'use strict';
 

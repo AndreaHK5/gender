@@ -1,5 +1,6 @@
 module.exports = createservice;
 
+// Business logic for votes
 function createservice(storage) { 
   return {
     addVote: addVote,
@@ -48,8 +49,8 @@ function createservice(storage) {
     return deferred.promise;
   }
 
-    function getBlank(){
-        return { male: 0, female: 0  };
-    }
+  function getBlank(){
+      return { male: 0, female: 0  };
+  }
 
 }

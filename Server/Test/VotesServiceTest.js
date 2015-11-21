@@ -73,13 +73,13 @@ describe("Votes Business logic test", function(){
     }); 
   });
 
-  it("resets votes", function (done){
-    var votes = { male:1, female:1 };
-    var _sut = init(votes);  
-    _sut.resetVotes().then(function () {
-        throw new Error("I can throw");
-        done();
-    }); 
-  });
+  // it("resets votes", function (done){
+  //   var votes = { male:1, female:1 };
+  //   var _sut = init(votes);  
+  //   _sut.resetVotes().then(function () {
+  //       throw new Error("I can throw");
+  //       done();
+  //   }); 
+  // });
 
 });

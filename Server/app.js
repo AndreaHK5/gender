@@ -20,7 +20,7 @@ function Start(address, votesController) {
   app.get('/api/votes', votesController.GetVotes);
   app.post('/api/resetvote', votesController.ResetVotes);
 
-  // required to ensure turning off server for tests
+  // The server is returned in order to ensure turn off (for tests)
   return {
     app : app,
     server : server

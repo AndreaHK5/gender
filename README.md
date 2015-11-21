@@ -24,11 +24,9 @@ Run it with your favourite server (I use `http-server`).
 
 ##ToDo List
 
-* Split business logic from controller in separate layer and implement using promises rather than sync.
-* Include End to End test on temp vote file.
-* Include Persistance layer to MongoLab ILO file system for vote file.
-* Change naming convetion for app and server.
+* Include Persistance layer to MongoLab ILO file system for vote file + storage for all votes with time stamp.
+* research into issue regarding assertions in async (not calling callback on success), possibly find better package for assertions
+* Change naming convetion for app and server (use Global).
 * Manual mocks, for the time being. Must find a package like Moq for node.
-* Split Controller from business logic for better unit testability.
 * Include gulp file for front end configurations.
 

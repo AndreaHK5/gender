@@ -12,9 +12,8 @@ require('./app.js').call({}, 3000, votesController);
 
 //TODO:
 // Include Persistance layer to MongoLab ILO file system for vote file
-// research into issue regarding assertions in async
+// research into issue regarding assertions in async (not calling callback on success )
 // Include storage of all votes (with time stamps)
-// change naming convetion for app and server
+// change naming convetion for app and server (use Global)
 // manual mocks, for the time being. Must find a package like Moq for node
 // find better package for assertions
-// End to end test.

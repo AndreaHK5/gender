@@ -11,29 +11,35 @@ function createservice(storage) {
   function addVote(gender){
     var deferred = Promise.defer();
 
-    var voteHash = storage.Read();
-    if (voteHash == -1) {
-        voteHash = getBlank();
-    }
-    voteHash[gender] = voteHash[gender] + 1;
-    storage.Update(voteHash);
-    setTimeout(function(){
-      deferred.resolve();
-    },500);
+    storage.Read().then(function (voteHash) {
+      if (voteHash == -1) {
+          voteHash = getBlank();
+      }
+      voteHash[gender] = voteHash[gender] + 1;
+      storage.Update(voteHash);
+      deferred.resolve();    
+    }, function (err) {
+      deferred.reject(err);
+    });
+
     return deferred.promise;
   }
 
   function retrieveVotes(){
     var deferred = Promise.defer();
 
-    setTimeout(function (){
-      var result = storage.Read();
+    storage.Read().then(function (result) {
       if (result == -1) {
           result = getBlank();
           storage.Update(result);
       }
-      deferred.resolve(result);
-    },500);
+      var dto = {};
+      dto.male = result.male;
+      dto.female = result.female;
+      deferred.resolve(dto);
+    }, function (err) {
+        deferred.reject(err);
+    });
 
     return deferred.promise;
   }
@@ -44,7 +50,7 @@ function createservice(storage) {
     setTimeout(function(){
       storage.Update(getBlank());
       deferred.resolve();
-    },500);
+    },10);
 
     return deferred.promise;
   }

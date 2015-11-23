@@ -1,7 +1,11 @@
 
 // Main dependency injections
-var votesPath = "./Storage/votes.json";
-var persistanceLayer = require('./Modules/PersistanceLayer.js').call({}, votesPath);
+// var votesPath = "./Storage/votes.json";
+//var persistanceLayer = require('./Modules/PersistanceLayer.js').call({}, votesPath);
+
+var connectionString = 'mongodb://dbuser:gender@ds057254.mongolab.com:57254/genderdb'; 
+var persistanceLayer = require('./Modules/PersistanceMongo.js').call({}, connectionString);
+
 var votesService = require('./Modules/VotesService.js').call({}, persistanceLayer);
 var votesController = require('./Modules/VotesController.js').call({}, votesService);
 

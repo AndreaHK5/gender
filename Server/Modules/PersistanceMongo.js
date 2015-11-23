@@ -10,9 +10,10 @@ function storage(connectionString) {
       Read : Read,
     }
 
-    var MongoClient = mongodb.MongoClient;
+    function Update(newObject) {
+      var deferred = Promise.defer();
 
-    function Update(newObject) {     
+      var MongoClient = mongodb.MongoClient;    
       MongoClient.connect(connectionString, function (err, db) {
         if (err) {
           console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -20,16 +21,22 @@ function storage(connectionString) {
           newObject.title = "Votes Registry";
           var votesCollection = db.collection("votes");
 
-          votesCollection.update({title : "Votes Registry"},newObject, true);
-
-          db.close();
+          votesCollection.update({title : "Votes Registry"},newObject, { upsert: true }).then(function (err) {
+            db.close();
+            if (err){
+              deferred.reject(err);
+            } else {
+              deferred.resolve();
+            };
+          });
         }
       });
+      return deferred.promise;
     }   
 
     function Read() {
       var deferred = Promise.defer();
-      
+      var MongoClient = mongodb.MongoClient;
       MongoClient.connect(connectionString, function (err, db) {
         if (err) {
           console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -49,7 +56,7 @@ function storage(connectionString) {
           }); 
         }
       });
-      
+
       return deferred.promise;
     }   
 

@@ -47,10 +47,11 @@ function createservice(storage) {
   function resetVotes(){
     var deferred = Promise.defer();
 
-    setTimeout(function(){
-      storage.Update(getBlank());
+    storage.Update(getBlank()).then( function () {
       deferred.resolve();
-    },10);
+    }, function (err) {
+      deferred.reject(err);
+    });
 
     return deferred.promise;
   }

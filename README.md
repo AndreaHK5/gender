@@ -24,7 +24,7 @@ Run it with your favourite server (I use `http-server`).
 
 ##ToDo List
 
-* Include Persistance layer to MongoLab ILO file system for vote file + storage for all votes with time stamp.
+* store for all votes with time stamp + hide setting for mongodb.
 * research into issue regarding assertions in async (not calling callback on success), possibly find better package for assertions
 * Change naming convetion for app and server (use Global).
 * Manual mocks, for the time being. Must find a package like Moq for node.

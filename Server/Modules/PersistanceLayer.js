@@ -1,6 +1,8 @@
 module.exports = storage;
 var fs = require('fs');
 
+// persistance layer for anything
+
 function storage(filepath) {
     'use strict';
 
@@ -22,8 +24,3 @@ function storage(filepath) {
     }   
 
 }
-
-
-
-
-

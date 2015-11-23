@@ -6,20 +6,19 @@ var fs = require('fs');
 describe("Votes Controller Unit Test", function () {
   var tempStorageFile  = "./tempVotes.json";
   var votes;
-  var _storageMock;
 
   // setup
   beforeEach(function (next) {
     fs.readFile(tempStorageFile, function (err, data){
       if (!err) {fs.unlink(tempStorageFile);}
     // Injection of mocks
-      _storageMock = require('../Modules/PersistanceLayer.js').call({}, tempStorageFile);
+      var _storageMock = require('../Modules/PersistanceLayer.js').call({}, tempStorageFile);
+      var votesService = require('../Modules/VotesService.js').call({}, _storageMock);
+      var votesController = require('../Modules/VotesController.js').call({}, votesService);
 
-      // instantiation of system under test
-      var _sut = require("../Modules/VotesController").call({},_storageMock);
 
       // TODO find out if there is another mock for servers rather than the hand made one.
-      express = require('../app').call({},5000, _sut);
+      express = require('../app').call({},5000, votesController);
       app = express.app;
       server = express.server;
       next();
@@ -28,11 +27,12 @@ describe("Votes Controller Unit Test", function () {
   });
 
   // teardown
-  afterEach(function () {
+  afterEach(function (done) {
       // delete file
       fs.readFile(tempStorageFile, function (err, data){
         if (!err) {fs.unlink(tempStorageFile);}
         server.close();
+        done();
       });
   });
 
@@ -46,7 +46,6 @@ describe("Votes Controller Unit Test", function () {
       function assertionPut(res) {
 
         if (res.status != 200) {throw new Error("expected 200, received " + res.status);}
-        console.log(tempStorageFile);
         fs.readFile(tempStorageFile, function (err, data) {
           if (err) {throw new Error("File not created by persistance layer");}
           var votesRead = JSON.parse(data);

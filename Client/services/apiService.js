@@ -3,7 +3,7 @@
     module.factory("apiService", function ($http) {
 
         var getVotes = function () {
-            return $http.get("http://genderbackend.azurewebsites.net/api/votes")
+            return $http.get("http://andreagenderbackend.azurewebsites.net/api/votes")
                       .then(function (response) {
                           return response.data;
                       });
@@ -12,14 +12,14 @@
         var putVote = function(vote) {
               var data = {};
               data.gender = vote;
-              return $http.put("http://genderbackend.azurewebsites.net/api/vote", data)
+              return $http.put("http://andreagenderbackend.azurewebsites.net/api/vote", data)
                 .then(function (response) {
                     return response.data;
                 });
         };
 
         var resetVotes = function() {
-              return $http.post("http://genderbackend.azurewebsites.net/api/resetvote")
+              return $http.post("http://andreagenderbackend.azurewebsites.net/api/resetvote")
                 .then(function (response) {
                     return response.data;
                 });
